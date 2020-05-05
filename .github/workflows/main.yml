@@ -31,7 +31,7 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - run: opam pin add masgpackaf.dev -n .
+      - run: opam pin add msgpackaf.dev -n .
       - run: opam depext -yt msgpackaf
       - run: opam install -t . --deps-only
       - run: opam exec -- dune build
