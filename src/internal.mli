@@ -43,21 +43,21 @@ val msgpack : t Angstrom.t
 
 val msgpacks : t list Angstrom.t
 
-val of_string : string -> (t, [> `Msg of string ]) result
+val of_string : ?allow_trailing_bytes:bool -> string -> (t, [> `Msg of string ]) result
 
-val of_string_exn : string -> t
+val of_string_exn : ?allow_trailing_bytes:bool -> string -> t
 
-val of_bigstring : bigstring -> (t, [> `Msg of string ]) result
+val of_bigstring : ?allow_trailing_bytes:bool -> bigstring -> (t, [> `Msg of string ]) result
 
-val of_bigstring_exn : bigstring -> t
+val of_bigstring_exn : ?allow_trailing_bytes:bool -> bigstring -> t
 
-val msgs_of_string : string -> (t list, [> `Msg of string ]) result
+val msgs_of_string : ?allow_trailing_bytes:bool -> string -> (t list, [> `Msg of string ]) result
 
-val msgs_of_string_exn : string -> t list
+val msgs_of_string_exn : ?allow_trailing_bytes:bool -> string -> t list
 
-val msgs_of_bigstring : bigstring -> (t list, [> `Msg of string ]) result
+val msgs_of_bigstring : ?allow_trailing_bytes:bool -> bigstring -> (t list, [> `Msg of string ]) result
 
-val msgs_of_bigstring_exn : bigstring -> t list
+val msgs_of_bigstring_exn : ?allow_trailing_bytes:bool -> bigstring -> t list
 
 val serialize : Faraday.t -> t -> unit
 

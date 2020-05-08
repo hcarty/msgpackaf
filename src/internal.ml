@@ -209,43 +209,46 @@ let msgpack = fix (fun v -> msgpack v)
 
 let msgpacks = many msgpack
 
-let of_string s =
-  match parse_string msgpack s with
+let is_prefix b : Angstrom.Consume.t =
+  if b then Prefix else All
+
+let of_string ?(allow_trailing_bytes = false) s =
+  match parse_string ~consume:(is_prefix allow_trailing_bytes) msgpack s with
   | Ok _ as o -> o
   | Error msg -> Error (`Msg msg)
 
-let of_string_exn s =
-  match of_string s with
+let of_string_exn ?allow_trailing_bytes s =
+  match of_string ?allow_trailing_bytes s with
   | Ok msg -> msg
   | Error (`Msg e) -> invalid_arg e
 
-let of_bigstring s =
-  match parse_bigstring msgpack s with
+let of_bigstring ?(allow_trailing_bytes = false) s =
+  match parse_bigstring ~consume:(is_prefix allow_trailing_bytes) msgpack s with
   | Ok _ as o -> o
   | Error msg -> Error (`Msg msg)
 
-let of_bigstring_exn s =
-  match of_bigstring s with
+let of_bigstring_exn ?allow_trailing_bytes s =
+  match of_bigstring ?allow_trailing_bytes s with
   | Ok msg -> msg
   | Error (`Msg e) -> invalid_arg e
 
-let msgs_of_string s =
-  match parse_string msgpacks s with
+let msgs_of_string ?(allow_trailing_bytes = false) s =
+  match parse_string ~consume:(is_prefix allow_trailing_bytes) msgpacks s with
   | Ok _ as o -> o
   | Error msg -> Error (`Msg msg)
 
-let msgs_of_string_exn s =
-  match msgs_of_string s with
+let msgs_of_string_exn ?allow_trailing_bytes s =
+  match msgs_of_string ?allow_trailing_bytes s with
   | Ok msg -> msg
   | Error (`Msg e) -> invalid_arg e
 
-let msgs_of_bigstring s =
-  match parse_bigstring msgpacks s with
+let msgs_of_bigstring ?(allow_trailing_bytes = false) s =
+  match parse_bigstring ~consume:(is_prefix allow_trailing_bytes) msgpacks s with
   | Ok _ as o -> o
   | Error e -> Error (`Msg e)
 
-let msgs_of_bigstring_exn s =
-  match msgs_of_bigstring s with
+let msgs_of_bigstring_exn ?allow_trailing_bytes s =
+  match msgs_of_bigstring ?allow_trailing_bytes s with
   | Ok msg -> msg
   | Error (`Msg e) -> invalid_arg e
 

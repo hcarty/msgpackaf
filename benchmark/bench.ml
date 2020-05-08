@@ -4,7 +4,7 @@ module Msgpack = Msgpackaf.Easy
 let () =
   (* cases.mpac is a test data set from the C msgpack library repo *)
   let cases_raw =
-    let file = "test/cases.mpac" in
+    let file = "test/cases_compact.mpac" in
     let ic = open_in_bin file in
     let length = in_channel_length ic in
     let content = really_input_string ic length in
